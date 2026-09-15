@@ -34,8 +34,9 @@ function makeHeartStroke(id: string, scale: number, rotation: number) {
     const t = (index / 69) * Math.PI * 2;
     const point = heartPoint(t, scale);
     return `${point.x.toFixed(1)},${point.y.toFixed(1)}`;
-  }).join(' ');
-  return { id, points, rotation };
+  });
+  const [first, ...rest] = points;
+  return { id, d: `M ${first} ${rest.map((point) => `L ${point}`).join(' ')} Z`, rotation };
 }
 
 export const NebulaObject: React.FC = () => {
@@ -64,7 +65,7 @@ export const NebulaObject: React.FC = () => {
       <div className="personality-nebula-core" />
       <svg className="personality-nebula-heart" viewBox="-170 -145 340 290" aria-hidden="true">
         {heartStrokes.map((stroke) => (
-          <polyline key={stroke.id} points={stroke.points} transform={`rotate(${stroke.rotation})`} />
+          <path key={stroke.id} d={stroke.d} transform={`rotate(${stroke.rotation})`} />
         ))}
       </svg>
       <div className="personality-nebula-particles">

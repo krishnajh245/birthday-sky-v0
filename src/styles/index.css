@@ -1704,6 +1704,16 @@ body {
 .custom-avatar-thumb, .auth-avatar-img-lg { width: 82px; height: 82px; max-width: 82px; max-height: 82px; display: block; object-fit: cover; border-radius: 50%; flex: 0 0 82px; }
 .avatar-preview-box { width: 90px; height: 90px; min-width: 90px; max-width: 90px; max-height: 90px; overflow: hidden; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
 
+/* Birthday sky: keep the navigable universe substantially larger than the viewport. */
+.space-universe { width: 500vw; height: 500vh; min-width: 500vw; min-height: 500vh; }
+.sky-viewport { overflow: hidden; background: #020617; }
+.personality-nebula-heart path { fill: none; stroke: rgba(244, 114, 182, 0.88); stroke-width: 1.6; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.personality-nebula-heart path:nth-child(2) { stroke: rgba(251, 191, 36, 0.6); stroke-width: 1.2; }
+.personality-nebula-heart path:nth-child(3) { stroke: rgba(255, 228, 230, 0.55); stroke-width: 1; }
+.flipbook-book-frame { transform-origin: center; backface-visibility: hidden; }
+.flipbook-book-frame.is-flipping { animation: page-flip 260ms ease both; }
+@keyframes page-flip { 0% { transform: perspective(900px) rotateY(0deg); opacity: 1; } 48% { transform: perspective(900px) rotateY(-10deg); opacity: .72; } 100% { transform: perspective(900px) rotateY(0deg); opacity: 1; } }
+
 @media (max-width: 640px) {
   .header-stats-container { top: 12px; left: 12px; right: 12px; }
   .header-bar-container { top: 12px; right: 12px; }

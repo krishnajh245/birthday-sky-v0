@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSky } from '../../context/SkyContext';
 import { StickerCanvasOverlay } from '../shared/StickerCanvasOverlay';
 import { X, ChevronLeft, ChevronRight, BookOpen, User } from 'lucide-react';
@@ -6,6 +6,17 @@ import { X, ChevronLeft, ChevronRight, BookOpen, User } from 'lucide-react';
 export const StoryViewerModal: React.FC = () => {
   const { activeModal, setActiveModal, stories, activeStoryId } = useSky();
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
+  const [isFlipping, setIsFlipping] = useState(false);
+
+  useEffect(() => {
+    setCurrentPageIndex(0);
+  }, [activeStoryId]);
+
+  const changePage = (nextIndex: number) => {
+    setIsFlipping(true);
+    setCurrentPageIndex(nextIndex);
+    window.setTimeout(() => setIsFlipping(false), 260);
+  };
 
   if (activeModal !== 'story-view' || !activeStoryId) return null;
 
@@ -55,7 +66,7 @@ export const StoryViewerModal: React.FC = () => {
 
         {/* Flipbook Page Reader Body */}
         <div className="flipbook-reader-body">
-          <div className={`flipbook-book-frame theme-${currentPage.theme} layout-${currentPage.layout}`}>
+          <div className={`flipbook-book-frame theme-${currentPage.theme} layout-${currentPage.layout} ${isFlipping ? 'is-flipping' : ''}`} aria-live="polite">
             {/* Layout 1: Text Only */}
             {currentPage.layout === 1 && (
               <div
@@ -145,7 +156,7 @@ export const StoryViewerModal: React.FC = () => {
             type="button"
             className="viewer-nav-btn"
             disabled={currentPageIndex === 0}
-            onClick={() => setCurrentPageIndex((prev) => Math.max(0, prev - 1))}
+            onClick={() => changePage(Math.max(0, currentPageIndex - 1))}
           >
             <ChevronLeft size={20} />
             <span>Previous</span>
@@ -159,7 +170,7 @@ export const StoryViewerModal: React.FC = () => {
             type="button"
             className="viewer-nav-btn"
             disabled={currentPageIndex === pages.length - 1}
-            onClick={() => setCurrentPageIndex((prev) => Math.min(pages.length - 1, prev + 1))}
+            onClick={() => changePage(Math.min(pages.length - 1, currentPageIndex + 1))}
           >
             <span>Next</span>
             <ChevronRight size={20} />

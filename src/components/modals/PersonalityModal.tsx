@@ -13,7 +13,7 @@ export const PersonalityModal: React.FC = () => {
     setAuthNotice
   } = useSky();
 
-  const [viewMode, setViewMode] = useState<'floating' | 'list'>('floating');
+  const [viewMode, setViewMode] = useState<'floating' | 'list'>('list');
   const [isAdding, setIsAdding] = useState(false);
   const [wordInput, setWordInput] = useState('');
   const [validationError, setValidationError] = useState<string | null>(null);
