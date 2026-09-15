@@ -33,8 +33,7 @@ export const SkyCanvas: React.FC = () => {
     wishes,
     stories,
     voiceNotes,
-    secretStars,
-    personalityWords
+    secretStars
   } = useSky();
 
   const isDraggingRef = useRef(false);
@@ -56,10 +55,10 @@ export const SkyCanvas: React.FC = () => {
   const backgroundStars = useMemo(() => generateBackgroundStars(900), []);
 
   const clampPan = (next: { x: number; y: number }) => {
-    const maxX = window.innerWidth * 0.92;
-    const minX = -window.innerWidth * 1.92;
-    const maxY = window.innerHeight * 0.92;
-    const minY = -window.innerHeight * 1.92;
+    const maxX = window.innerWidth * 1.92;
+    const minX = -window.innerWidth * 3.92;
+    const maxY = window.innerHeight * 1.92;
+    const minY = -window.innerHeight * 3.92;
     return {
       x: Math.min(maxX, Math.max(minX, next.x)),
       y: Math.min(maxY, Math.max(minY, next.y))
@@ -227,13 +226,6 @@ export const SkyCanvas: React.FC = () => {
 
         {/* Dense Star Concentration Nebula */}
         <NebulaObject />
-
-        {/* Floating personality thoughts */}
-        {personalityWords.map((item) => (
-          <div key={item.id} className="sky-personality-card" style={{ left: `${item.x}%`, top: `${item.y}%`, borderColor: `${item.color}66`, color: item.color, boxShadow: `0 0 18px ${item.color}33`, animationDelay: `${item.floatDelay}s`, animationDuration: `${item.floatDuration}s` }} title={`Added by ${item.creatorName}`}>
-            <span>{item.word}</span>
-          </div>
-        ))}
 
         {/* Central Moon */}
         <MoonObject />
