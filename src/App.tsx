@@ -11,7 +11,11 @@ import { MoonMessageModal } from './components/modals/MoonMessageModal';
 import { PlanetDesignerModal } from './components/modals/PlanetDesignerModal';
 import { StoryStudioModal } from './components/modals/StoryStudioModal';
 import { StoryViewerModal } from './components/modals/StoryViewerModal';
+<<<<<<< HEAD
 import { PersonalityModal } from './components/modals/PersonalityModal';
+=======
+import { NebulaWordModal } from './components/modals/NebulaWordModal';
+>>>>>>> origin/main
 import { VoiceProbeModal } from './components/modals/VoiceProbeModal';
 import { SecretStarModal } from './components/modals/SecretStarModal';
 import { BlackHoleModal } from './components/modals/BlackHoleModal';
@@ -40,9 +44,15 @@ const AppContent: React.FC = () => {
       <WishCardModal />
       <MoonMessageModal />
       <PlanetDesignerModal onCompleteDesign={(design) => setStagedPlanetDesign(design)} />
+<<<<<<< HEAD
       <StoryStudioModal initialPlanetDesign={stagedPlanetDesign} />
       <StoryViewerModal />
       <PersonalityModal />
+=======
+      <StoryStudioModal initialPlanetDesign={stagedPlanetDesign} onSubmitted={() => setStagedPlanetDesign(null)} />
+      <StoryViewerModal />
+      <NebulaWordModal />
+>>>>>>> origin/main
       <VoiceProbeModal />
       <SecretStarModal />
       <BlackHoleModal />

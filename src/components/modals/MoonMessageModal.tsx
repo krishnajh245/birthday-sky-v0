@@ -1,6 +1,9 @@
 import React from 'react';
 import { useSky } from '../../context/SkyContext';
+<<<<<<< HEAD
 import { PROGRAMMER_CENTRAL_MESSAGE } from '../../services/storage';
+=======
+>>>>>>> origin/main
 import { X } from 'lucide-react';
 
 export const MoonMessageModal: React.FC = () => {
@@ -11,7 +14,11 @@ export const MoonMessageModal: React.FC = () => {
   return (
     <div className="modal-backdrop" onClick={() => setActiveModal(null)}>
       <div
+<<<<<<< HEAD
         className="modal-content moon-minimal-window animate-scale-in"
+=======
+        className="modal-content moon-minimal-window glass-panel animate-scale-in"
+>>>>>>> origin/main
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -25,7 +32,16 @@ export const MoonMessageModal: React.FC = () => {
 
         <div className="moon-message-content-area">
           <p className="moon-minimal-text">
+<<<<<<< HEAD
             {PROGRAMMER_CENTRAL_MESSAGE.text}
+=======
+            <span style={{ fontWeight: 700 }}>
+              Happy Birthday Summm💋💕
+            </span>
+            <span>Welcome to this little sky which was made for you filled with wishes, memories and pieces of everyone who cares about you✨</span>
+            <span>So move around and find elements which shine a bit more than the others 😋</span>
+            <span>Hint: The unopened bar in the bottom left corner is there to help you😉</span>
+>>>>>>> origin/main
           </p>
         </div>
       </div>

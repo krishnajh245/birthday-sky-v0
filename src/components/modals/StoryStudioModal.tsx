@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, { useState, useRef } from 'react';
+=======
+import React, { useEffect, useState, useRef } from 'react';
+>>>>>>> origin/main
 import { useSky } from '../../context/SkyContext';
 import { Story, StoryPage, StoryLayoutType, PageThemeType, PlanetDesign, StickerItem } from '../../types/celestial';
 import { RichTextToolbar } from '../shared/RichTextToolbar';
@@ -7,9 +11,17 @@ import { StickerCanvasOverlay } from '../shared/StickerCanvasOverlay';
 import { X, ChevronLeft, ChevronRight, Plus, Check, Image as ImageIcon, Sparkles } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { findSafeSkyPosition } from '../../utils/objectPlacement';
+<<<<<<< HEAD
 
 interface StoryStudioModalProps {
   initialPlanetDesign?: PlanetDesign | null;
+=======
+import { CardTextBoxItem } from '../shared/CardTextBoxItem';
+
+interface StoryStudioModalProps {
+  initialPlanetDesign?: PlanetDesign | null;
+  onSubmitted?: () => void;
+>>>>>>> origin/main
 }
 
 const PAGE_THEMES: { id: PageThemeType; label: string; className: string }[] = [
@@ -21,10 +33,17 @@ const PAGE_THEMES: { id: PageThemeType; label: string; className: string }[] = [
   { id: 'sunset', label: 'Sunset', className: 'theme-sunset' }
 ];
 
+<<<<<<< HEAD
 export const StoryStudioModal: React.FC<StoryStudioModalProps> = ({ initialPlanetDesign }) => {
   const { activeModal, setActiveModal, addStory, currentUser, wishes, stories, voiceNotes, secretStars } = useSky();
 
   const [activeTab, setActiveTab] = useState<'content' | 'layout-theme' | 'stickers'>('content');
+=======
+export const StoryStudioModal: React.FC<StoryStudioModalProps> = ({ initialPlanetDesign, onSubmitted }) => {
+  const { activeModal, setActiveModal, addStory, currentUser, wishes, stories, voiceNotes, secretStars } = useSky();
+
+  const [activeTab, setActiveTab] = useState<'layout' | 'content' | 'theme' | 'stickers'>('layout');
+>>>>>>> origin/main
   const [storyTitle, setStoryTitle] = useState('Relive a Day ✨');
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
 
@@ -41,7 +60,20 @@ export const StoryStudioModal: React.FC<StoryStudioModalProps> = ({ initialPlane
         italic: false,
         underline: false
       },
+<<<<<<< HEAD
       imageUrl: '',
+=======
+      textBoxX: 20,
+      textBoxY: 20,
+      textBoxWidth: 320,
+      textBoxHeight: 120,
+
+      imageUrl: '',
+      imageX: 20,
+      imageY: 40,
+      imageWidth: 150,
+      imageHeight: 180,
+>>>>>>> origin/main
       stickers: [],
       theme: 'midnight'
     }
@@ -49,11 +81,62 @@ export const StoryStudioModal: React.FC<StoryStudioModalProps> = ({ initialPlane
 
   const [selectedStickerId, setSelectedStickerId] = useState<string | null>(null);
   const [validationError, setValidationError] = useState<string | null>(null);
+<<<<<<< HEAD
+=======
+
+  const [customGradientFrom, setCustomGradientFrom] = useState('#1a1033');
+  const [customGradientTo, setCustomGradientTo] = useState('#4b2a7b');
+
+
+  const currentPage = pages[currentPageIndex] || pages[0];
+
+
+
+  useEffect(() => {
+    if (activeModal === 'story-studio') {
+      setActiveTab('layout');
+      setCurrentPageIndex(0);
+      setSelectedStickerId(null);
+      setCustomGradientFrom('#1a1033');
+      setCustomGradientTo('#4b2a7b');
+
+      setStoryTitle('Relive a Day ✨');
+      setPages([{
+        id: `page-${Date.now()}`,
+        layout: 1,
+        text: '',
+        textStyle: {
+          font: 'handwritten',
+          color: '#ffffff',
+          size: 18,
+          bold: false,
+          italic: false,
+          underline: false
+        },
+        textBoxX: 20,
+        textBoxY: 20,
+        textBoxWidth: 320,
+        textBoxHeight: 120,
+        imageUrl: '',
+        imageX: 20,
+        imageY: 40,
+        imageWidth: 150,
+        imageHeight: 180,
+        stickers: [],
+        theme: 'midnight'
+      }]);
+    }
+  }, [activeModal]);
+>>>>>>> origin/main
   const imageInputRef = useRef<HTMLInputElement>(null);
 
   if (activeModal !== 'story-studio') return null;
 
+<<<<<<< HEAD
   const currentPage = pages[currentPageIndex] || pages[0];
+=======
+
+>>>>>>> origin/main
 
   const updateCurrentPage = (updated: Partial<StoryPage>) => {
     setPages((prev) =>
@@ -87,7 +170,19 @@ export const StoryStudioModal: React.FC<StoryStudioModalProps> = ({ initialPlane
         italic: false,
         underline: false
       },
+<<<<<<< HEAD
       imageUrl: '',
+=======
+      textBoxX: 20,
+      textBoxY: 20,
+      textBoxWidth: 320,
+      textBoxHeight: 120,
+      imageUrl: '',
+      imageX: 20,
+      imageY: 40,
+      imageWidth: 150,
+      imageHeight: 180,
+>>>>>>> origin/main
       stickers: [],
       theme: currentPage.theme
     };
@@ -160,6 +255,10 @@ export const StoryStudioModal: React.FC<StoryStudioModalProps> = ({ initialPlane
     };
 
     addStory(newStory);
+<<<<<<< HEAD
+=======
+    onSubmitted?.();
+>>>>>>> origin/main
     setActiveModal(null);
 
     confetti({
@@ -173,7 +272,11 @@ export const StoryStudioModal: React.FC<StoryStudioModalProps> = ({ initialPlane
 
   return (
     <div className="modal-backdrop">
+<<<<<<< HEAD
       <div className="modal-content compact-studio-window story-studio animate-scale-in">
+=======
+      <div className="modal-content compact-studio-window story-studio glass-panel animate-scale-in">
+>>>>>>> origin/main
         {/* Header */}
         <div className="compact-studio-header">
           <div className="header-titles">
@@ -184,6 +287,7 @@ export const StoryStudioModal: React.FC<StoryStudioModalProps> = ({ initialPlane
           <div className="studio-tab-switches">
             <button
               type="button"
+<<<<<<< HEAD
               className={`studio-tab-pill ${activeTab === 'content' ? 'active' : ''}`}
               onClick={() => setActiveTab('content')}
             >
@@ -195,13 +299,37 @@ export const StoryStudioModal: React.FC<StoryStudioModalProps> = ({ initialPlane
               onClick={() => setActiveTab('layout-theme')}
             >
               2. Layout & Theme
+=======
+              className={`studio-tab-pill ${activeTab === 'layout' ? 'active' : ''}`}
+              onClick={() => setActiveTab('layout')}
+            >
+              1. Layout
+            </button>
+            <button
+              type="button"
+              className={`studio-tab-pill ${activeTab === 'content' ? 'active' : ''}`}
+              onClick={() => setActiveTab('content')}
+            >
+              2. Story Content
+            </button>
+            <button
+              type="button"
+              className={`studio-tab-pill ${activeTab === 'theme' ? 'active' : ''}`}
+              onClick={() => setActiveTab('theme')}
+            >
+              3. Theme
+>>>>>>> origin/main
             </button>
             <button
               type="button"
               className={`studio-tab-pill ${activeTab === 'stickers' ? 'active' : ''}`}
               onClick={() => setActiveTab('stickers')}
             >
+<<<<<<< HEAD
               3. Stickers
+=======
+              4. Stickers
+>>>>>>> origin/main
             </button>
           </div>
 
@@ -326,6 +454,7 @@ export const StoryStudioModal: React.FC<StoryStudioModalProps> = ({ initialPlane
             )}
 
             {/* TAB 2: Layout & Themes */}
+<<<<<<< HEAD
             {activeTab === 'layout-theme' && (
               <div className="compact-tab-pane animate-fade-in">
                 <label className="input-label">Page Layout (4 Options)</label>
@@ -349,6 +478,32 @@ export const StoryStudioModal: React.FC<StoryStudioModalProps> = ({ initialPlane
 
                 <label className="input-label" style={{ marginTop: '12px' }}>Page Theme</label>
                 <div className="theme-options-grid compact">
+=======
+            {(activeTab === 'layout' || activeTab === 'theme') && (
+              <div className="compact-tab-pane animate-fade-in">
+                {activeTab === 'layout' && <>
+                  <label className="input-label">Page Layout (4 Options)</label>
+                  <div className="layout-selector-row compact">
+                    {[
+                      { id: 1 as StoryLayoutType, label: '1. Text Only' },
+                      { id: 2 as StoryLayoutType, label: '2. Image Only' },
+                      { id: 3 as StoryLayoutType, label: '3. Text L + Img R' },
+                      { id: 4 as StoryLayoutType, label: '4. Img L + Text R' }
+                    ].map((ly) => (
+                      <button
+                        key={ly.id}
+                        type="button"
+                        className={`layout-option-chip ${currentPage.layout === ly.id ? 'active' : ''}`}
+                        onClick={() => updateCurrentPage({ layout: ly.id })}
+                      >
+                        {ly.label}
+                      </button>
+                    ))}
+                  </div></>}
+
+                {activeTab === 'theme' && <label className="input-label" style={{ marginTop: '12px' }}>Page Theme</label>}
+                {activeTab === 'theme' && <div className="theme-options-grid compact">
+>>>>>>> origin/main
                   {PAGE_THEMES.map((th) => (
                     <button
                       key={th.id}
@@ -360,11 +515,81 @@ export const StoryStudioModal: React.FC<StoryStudioModalProps> = ({ initialPlane
                       <span>{th.label}</span>
                     </button>
                   ))}
+<<<<<<< HEAD
                 </div>
               </div>
             )}
 
             {/* TAB 3: Stickers */}
+=======
+
+                  <button
+                    type="button"
+                    className={`theme-chip-btn ${currentPage.theme === 'custom' ? 'active' : ''}`}
+                    onClick={() => {
+                      updateCurrentPage({
+                        theme: 'custom',
+                        customGradientFrom,
+                        customGradientTo
+                      });
+                    }}
+                  >
+                    <span
+                      className="theme-color-dot"
+                      style={{
+                        background: `linear-gradient(135deg, ${customGradientFrom}, ${customGradientTo})`
+                      }}
+                    />
+                    <span>Custom Gradient</span>
+                  </button>
+                </div>}
+                {activeTab === 'theme' && currentPage.theme === 'custom' && (
+                  <div style={{ marginTop: '14px' }}>
+                    <label className="input-label">Gradient Colors</label>
+
+                    <div style={{ display: 'flex', gap: '12px', marginTop: '8px' }}>
+                      <label style={{ flex: 1 }}>
+                        <span style={{ display: 'block', fontSize: '12px', marginBottom: '4px' }}>
+                          Start
+                        </span>
+                        <input
+                          type="color"
+                          value={customGradientFrom}
+                          onChange={(e) => {
+                            setCustomGradientFrom(e.target.value);
+                            updateCurrentPage({
+                              customGradientFrom: e.target.value
+                            });
+                          }}
+                          style={{ width: '100%', height: '38px' }}
+                        />
+                      </label>
+
+                      <label style={{ flex: 1 }}>
+                        <span style={{ display: 'block', fontSize: '12px', marginBottom: '4px' }}>
+                          End
+                        </span>
+                        <input
+                          type="color"
+                          value={customGradientTo}
+                          onChange={(e) => {
+                            setCustomGradientTo(e.target.value);
+                            updateCurrentPage({
+                              customGradientTo: e.target.value
+                            });
+                          }}
+                          style={{ width: '100%', height: '38px' }}
+                        />
+                      </label>
+                    </div>
+                  </div>
+                )}
+
+              </div>
+            )}
+
+            {/* TAB 4: Stickers */}
+>>>>>>> origin/main
             {activeTab === 'stickers' && (
               <div className="compact-tab-pane animate-fade-in">
                 <StickerBar
@@ -391,6 +616,7 @@ export const StoryStudioModal: React.FC<StoryStudioModalProps> = ({ initialPlane
 
           {/* RIGHT: Live Flipbook Page Preview */}
           <div className="compact-right-preview">
+<<<<<<< HEAD
             <div className={`compact-flipbook-page theme-${currentPage.theme} layout-${currentPage.layout}`}>
               {currentPage.layout === 1 && (
                 <div
@@ -405,6 +631,39 @@ export const StoryStudioModal: React.FC<StoryStudioModalProps> = ({ initialPlane
                 >
                   {currentPage.text || 'Add your story text in the editor...'}
                 </div>
+=======
+            <div className={`compact-flipbook-page theme-${currentPage.theme} layout-${currentPage.layout}`} style={
+              currentPage.theme === 'custom'
+                ? {
+                  background: `radial-gradient(circle at 50% 50%, ${currentPage.customGradientFrom || '#1a1033'} 0%, ${currentPage.customGradientTo || '#4b2a7b'} 100%)`
+                }
+                : undefined
+            }>
+              {currentPage.layout === 1 && (
+                <CardTextBoxItem
+                  id="story-text"
+                  box={{
+                    text: currentPage.text || 'Add your story text in the editor...',
+                    x: currentPage.textBoxX,
+                    y: currentPage.textBoxY,
+                    width: currentPage.textBoxWidth,
+                    height: currentPage.textBoxHeight,
+                    style: currentPage.textStyle
+                  }}
+                  onChange={(updatedBox) =>
+                    updateCurrentPage({
+                      textBoxX: updatedBox.x,
+                      textBoxY: updatedBox.y,
+                      textBoxWidth: updatedBox.width,
+                      textBoxHeight: updatedBox.height
+                    })
+                  }
+                  isSelected={true}
+                  isEditable={true}
+                  cardWidth={360}
+                  cardHeight={260}
+                />
+>>>>>>> origin/main
               )}
 
               {currentPage.layout === 2 && (
@@ -422,6 +681,7 @@ export const StoryStudioModal: React.FC<StoryStudioModalProps> = ({ initialPlane
 
               {currentPage.layout === 3 && (
                 <div className="page-split-container compact">
+<<<<<<< HEAD
                   <div
                     className={`page-split-text font-${currentPage.textStyle.font}`}
                     style={{
@@ -440,6 +700,53 @@ export const StoryStudioModal: React.FC<StoryStudioModalProps> = ({ initialPlane
                     ) : (
                       <div className="image-placeholder-box small">
                         <ImageIcon size={18} />
+=======
+                  <div className="page-split-text">
+                    <CardTextBoxItem
+                      id="story-text-left"
+                      box={{
+                        text: currentPage.text || 'Text left...',
+                        x: 10,
+                        y: 26,
+                        width: 160,
+                        height: 220,
+                        style: currentPage.textStyle
+                      }}
+                      onChange={(updatedBox) =>
+                        updateCurrentPage({
+                          textBoxX: updatedBox.x,
+                          textBoxY: updatedBox.y,
+                          textBoxWidth: updatedBox.width,
+                          textBoxHeight: updatedBox.height
+                        })
+                      }
+                      isSelected={true}
+                      isEditable={true}
+                      cardWidth={360}
+                      cardHeight={260}
+                    />
+                  </div>
+
+                  <div className="page-split-image">
+                    {currentPage.imageUrl ? (
+                      <img
+                        src={currentPage.imageUrl}
+                        alt="Story"
+                        className="story-render-image"
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'contain',
+                          display: 'block',
+                          maxWidth: '100%',
+                          maxHeight: '100%'
+                        }}
+                      />
+                    ) : (
+                      <div className="image-placeholder-box">
+                        <ImageIcon size={28} />
+                        <span>Upload image</span>
+>>>>>>> origin/main
                       </div>
                     )}
                   </div>
@@ -448,6 +755,7 @@ export const StoryStudioModal: React.FC<StoryStudioModalProps> = ({ initialPlane
 
               {currentPage.layout === 4 && (
                 <div className="page-split-container compact">
+<<<<<<< HEAD
                   <div className="page-split-image">
                     {currentPage.imageUrl ? (
                       <img src={currentPage.imageUrl} alt="Memory" className="story-render-image" />
@@ -472,6 +780,58 @@ export const StoryStudioModal: React.FC<StoryStudioModalProps> = ({ initialPlane
                 </div>
               )}
 
+=======
+                  {/* IMAGE — LEFT */}
+                  <div className="page-split-image">
+                    {currentPage.imageUrl ? (
+                      <img
+                        src={currentPage.imageUrl}
+                        alt="Story"
+                        className="story-render-image"
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'contain',
+                          display: 'block'
+                        }}
+                      />
+                    ) : (
+                      <div className="image-placeholder-box">
+                        <ImageIcon size={28} />
+                        <span>Upload image</span>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* TEXT — RIGHT */}
+                  <div className="page-split-text">
+                    <CardTextBoxItem
+                      id="story-text-right"
+                      box={{
+                        text: currentPage.text || 'Text right...',
+                        x: 190,
+                        y: 20,
+                        width: 160,
+                        height: 220,
+                        style: currentPage.textStyle
+                      }}
+                      onChange={(updatedBox) =>
+                        updateCurrentPage({
+                          textBoxX: updatedBox.x,
+                          textBoxY: updatedBox.y,
+                          textBoxWidth: updatedBox.width,
+                          textBoxHeight: updatedBox.height
+                        })
+                      }
+                      isSelected={true}
+                      isEditable={true}
+                      cardWidth={360}
+                      cardHeight={260}
+                    />
+                  </div>
+                </div>
+              )}
+>>>>>>> origin/main
               <StickerCanvasOverlay
                 stickers={currentPage.stickers || []}
                 selectedStickerId={selectedStickerId}
@@ -496,6 +856,7 @@ export const StoryStudioModal: React.FC<StoryStudioModalProps> = ({ initialPlane
           <span className="footer-info">
             All pages remain editable until submission ✦
           </span>
+<<<<<<< HEAD
           <button
             type="button"
             className="continue-button"
@@ -504,6 +865,19 @@ export const StoryStudioModal: React.FC<StoryStudioModalProps> = ({ initialPlane
             <span>Submit Story</span>
             <Check size={16} />
           </button>
+=======
+          <div className="story-footer-actions">
+
+            <button
+              type="button"
+              className="continue-button"
+              onClick={handleFinalSubmit}
+            >
+              <span>Submit Story</span>
+              <Check size={16} />
+            </button>
+          </div>
+>>>>>>> origin/main
         </div>
       </div>
     </div>

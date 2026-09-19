@@ -15,7 +15,12 @@ const STICKER_CATEGORIES = [
   { id: 'small', label: 'Small' },
   { id: 'birthday', label: 'Birthday' },
   { id: 'flowers', label: 'Flowers' },
+<<<<<<< HEAD
   { id: 'cosmic', label: 'Cosmic' }
+=======
+  { id: 'cosmic', label: 'Cosmic' },
+  { id: 'custom', label: 'Custom Stickers' }
+>>>>>>> origin/main
 ];
 
 const STICKERS_DATA = [
@@ -44,6 +49,11 @@ const STICKERS_DATA = [
   { symbol: '🌌', category: 'cosmic' }
 ];
 
+<<<<<<< HEAD
+=======
+import { useSky } from '../../context/SkyContext';
+
+>>>>>>> origin/main
 export const StickerBar: React.FC<StickerBarProps> = ({
   onAddSticker,
   selectedSticker,
@@ -51,6 +61,7 @@ export const StickerBar: React.FC<StickerBarProps> = ({
   onDeleteSelectedSticker,
   onDuplicateSelectedSticker
 }) => {
+<<<<<<< HEAD
   const [activeCategory, setActiveCategory] = useState('all');
   const [customStickers, setCustomStickers] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -58,6 +69,20 @@ export const StickerBar: React.FC<StickerBarProps> = ({
   const filteredStickers =
     activeCategory === 'all'
       ? STICKERS_DATA
+=======
+  const { currentUser, addUploadedSticker } = useSky();
+  const [activeCategory, setActiveCategory] = useState<string>('all');
+  const [localCustomStickers, setLocalCustomStickers] = useState<string[]>([]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Combine account-persisted stickers with any local session uploads
+  const savedStickers = currentUser?.uploadedStickers || [];
+  const allCustomStickers = Array.from(new Set([...savedStickers, ...localCustomStickers]));
+
+  const filteredStickers =
+    activeCategory === 'all' || activeCategory === 'custom'
+      ? (activeCategory === 'custom' ? [] : STICKERS_DATA)
+>>>>>>> origin/main
       : STICKERS_DATA.filter((s) => s.category === activeCategory);
 
   const handleCustomUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,7 +93,12 @@ export const StickerBar: React.FC<StickerBarProps> = ({
     reader.onload = (event) => {
       const dataUrl = event.target?.result as string;
       if (dataUrl) {
+<<<<<<< HEAD
         setCustomStickers((prev) => [dataUrl, ...prev]);
+=======
+        setLocalCustomStickers((prev) => [dataUrl, ...prev]);
+        addUploadedSticker(dataUrl);
+>>>>>>> origin/main
         onAddSticker('custom', true, dataUrl);
       }
     };
@@ -93,17 +123,31 @@ export const StickerBar: React.FC<StickerBarProps> = ({
       </div>
 
       {/* Stickers Tray & Custom Sticker Area */}
+<<<<<<< HEAD
       <div className="sticker-tray-scroll">
         {/* Custom Sticker Upload Button */}
         <button
           type="button"
           className="sticker-button upload-btn"
+=======
+      <div className={`sticker-picker-layout ${activeCategory === 'all' ? 'sticker-picker-all' : 'sticker-picker-category'}`}>
+      <div className="sticker-tray-scroll">
+        {/* Custom Sticker Upload Button */}
+        {activeCategory === 'custom' && <button
+          type="button"
+          className="sticker-button upload-btn custom-upload-button"
+>>>>>>> origin/main
           onClick={() => fileInputRef.current?.click()}
           title="Upload your own custom sticker"
         >
           <Upload size={16} />
+<<<<<<< HEAD
           <span>Custom Sticker</span>
         </button>
+=======
+          <span>Custom Stickers</span>
+        </button>}
+>>>>>>> origin/main
         <input
           ref={fileInputRef}
           type="file"
@@ -113,7 +157,11 @@ export const StickerBar: React.FC<StickerBarProps> = ({
         />
 
         {/* Uploaded Custom Stickers */}
+<<<<<<< HEAD
         {customStickers.map((url, idx) => (
+=======
+        {allCustomStickers.map((url, idx) => (
+>>>>>>> origin/main
           <button
             key={`custom-${idx}`}
             type="button"
@@ -138,6 +186,22 @@ export const StickerBar: React.FC<StickerBarProps> = ({
           </button>
         ))}
       </div>
+<<<<<<< HEAD
+=======
+      {selectedSticker && (
+        <div className="sticker-selected-preview" aria-label="Selected sticker preview">
+          <span className="sticker-preview-label">Selected sticker</span>
+          <div className="sticker-preview-art">
+            {selectedSticker.isCustom && selectedSticker.customUrl ? (
+              <img src={selectedSticker.customUrl} alt="Selected custom sticker" />
+            ) : (
+              selectedSticker.symbol
+            )}
+          </div>
+        </div>
+      )}
+      </div>
+>>>>>>> origin/main
 
       {/* Floating Toolbar when a sticker on canvas is selected */}
       {selectedSticker && onUpdateSelectedSticker && (

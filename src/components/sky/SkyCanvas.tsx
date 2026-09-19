@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, { useRef, useMemo } from 'react';
+=======
+import React, { useRef, useMemo, useEffect } from 'react';
+>>>>>>> origin/main
 import { useSky } from '../../context/SkyContext';
 import { MoonObject } from './MoonObject';
 import { ConstellationObject } from './ConstellationObject';
@@ -8,6 +12,7 @@ import { SpaceProbeObject } from './SpaceProbeObject';
 import { SecretStarObject } from './SecretStarObject';
 import { BlackHoleObject } from './BlackHoleObject';
 
+<<<<<<< HEAD
 function generateBackgroundStars(count = 900) {
   const stars = [];
   for (let i = 0; i < count; i++) {
@@ -22,6 +27,30 @@ function generateBackgroundStars(count = 900) {
     stars.push({ id: i, x, y, size, opacity, isTwinkle, isBright, delay });
   }
   return stars;
+=======
+const WORLD_SIZE = 6;
+const WORLD_ORIGIN = -2.5;
+const ZOOM_MIN = 0.5;
+const ZOOM_MAX = 2.2;
+
+function seededRandom(seed: number) {
+  const value = Math.sin(seed * 12.9898) * 43758.5453;
+  return value - Math.floor(value);
+}
+
+function generateBackgroundStars(count = 1800) {
+  return Array.from({ length: count }, (_, id) => {
+    const x = seededRandom(id * 4 + 1) * 100;
+    const y = seededRandom(id * 4 + 2) * 100;
+    const size = seededRandom(id * 4 + 3) * 4.8 + 1.8;
+    const opacity = seededRandom(id * 4 + 4) * 0.5 + 0.2;
+    const isTwinkle = seededRandom(id * 4 + 5) < 0.15;
+    const isBright = seededRandom(id * 4 + 6) < 0.05;
+    const delay = seededRandom(id * 4 + 7) * 3;
+
+    return { id, x, y, size, opacity, isTwinkle, isBright, delay };
+  });
+>>>>>>> origin/main
 }
 
 export const SkyCanvas: React.FC = () => {
@@ -33,9 +62,21 @@ export const SkyCanvas: React.FC = () => {
     wishes,
     stories,
     voiceNotes,
+<<<<<<< HEAD
     secretStars
   } = useSky();
 
+=======
+    secretStars,
+    nebulaWords,
+    focusOnCoordinates
+  } = useSky();
+
+  useEffect(() => {
+    focusOnCoordinates(52, 18);
+  }, [focusOnCoordinates]);
+
+>>>>>>> origin/main
   const isDraggingRef = useRef(false);
   const dragStartRef = useRef({ x: 0, y: 0 });
   const touchStateRef = useRef<{
@@ -52,6 +93,7 @@ export const SkyCanvas: React.FC = () => {
     lastTouchPos: { x: 0, y: 0 }
   });
 
+<<<<<<< HEAD
   const backgroundStars = useMemo(() => generateBackgroundStars(900), []);
 
   const clampPan = (next: { x: number; y: number }) => {
@@ -59,6 +101,17 @@ export const SkyCanvas: React.FC = () => {
     const minX = -window.innerWidth * 3.92;
     const maxY = window.innerHeight * 1.92;
     const minY = -window.innerHeight * 3.92;
+=======
+  const backgroundStars = useMemo(() => generateBackgroundStars(1800), []);
+
+  const clampPan = (next: { x: number; y: number }, nextZoom = zoom) => {
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    const minX = viewportWidth - viewportWidth * (WORLD_SIZE + WORLD_ORIGIN) * nextZoom;
+    const maxX = -viewportWidth * WORLD_ORIGIN * nextZoom;
+    const minY = viewportHeight - viewportHeight * (WORLD_SIZE + WORLD_ORIGIN) * nextZoom;
+    const maxY = -viewportHeight * WORLD_ORIGIN * nextZoom;
+>>>>>>> origin/main
     return {
       x: Math.min(maxX, Math.max(minX, next.x)),
       y: Math.min(maxY, Math.max(minY, next.y))
@@ -82,7 +135,11 @@ export const SkyCanvas: React.FC = () => {
       target.closest('.sky-probe-wrapper') ||
       target.closest('.secret-star-node') ||
       target.closest('.simple-moon-interactive') ||
+<<<<<<< HEAD
       target.closest('.personality-nebula')
+=======
+      target.closest('.nebula-nebula')
+>>>>>>> origin/main
     );
   };
 
@@ -157,8 +214,14 @@ export const SkyCanvas: React.FC = () => {
 
       if (touchStateRef.current.initialDistance > 0) {
         const scaleFactor = currentDist / touchStateRef.current.initialDistance;
+<<<<<<< HEAD
         const newZoom = Math.min(2.2, Math.max(0.5, touchStateRef.current.initialZoom * scaleFactor));
         setZoom(newZoom);
+=======
+        const newZoom = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, touchStateRef.current.initialZoom * scaleFactor));
+        setZoom(newZoom);
+        setPanOffset((current) => clampPan(current, newZoom));
+>>>>>>> origin/main
       }
     }
   };
@@ -183,7 +246,15 @@ export const SkyCanvas: React.FC = () => {
     if (shouldIgnoreTarget(e.target as HTMLElement)) return;
     e.preventDefault();
     const zoomDelta = e.deltaY > 0 ? -0.06 : 0.06;
+<<<<<<< HEAD
     setZoom((prev) => Math.min(2.2, Math.max(0.5, prev + zoomDelta)));
+=======
+    setZoom((prev) => {
+      const nextZoom = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, prev + zoomDelta));
+      setPanOffset((current) => clampPan(current, nextZoom));
+      return nextZoom;
+    });
+>>>>>>> origin/main
   };
 
   return (
@@ -224,6 +295,7 @@ export const SkyCanvas: React.FC = () => {
           />
         ))}
 
+<<<<<<< HEAD
         {/* Dense Star Concentration Nebula */}
         <NebulaObject />
 
@@ -252,6 +324,42 @@ export const SkyCanvas: React.FC = () => {
 
         {/* Wish and prayer void */}
         <BlackHoleObject />
+=======
+        <div className="legacy-sky-layer">
+          {/* Nebula and its words are kept inside one bounded area */}
+          <div className="nebula-stage">
+            <NebulaObject />
+
+
+          </div>
+
+          {/* Central Moon */}
+          <MoonObject />
+
+          {/* Wish Constellations */}
+          {wishes.map((wish) => (
+            <ConstellationObject key={wish.id} wish={wish} />
+          ))}
+
+          {/* Stories / Planets */}
+          {stories.map((story) => (
+            <PlanetObject key={story.id} story={story} />
+          ))}
+
+          {/* Space Probes */}
+          {voiceNotes.map((probe) => (
+            <SpaceProbeObject key={probe.id} probe={probe} />
+          ))}
+
+          {/* Programmer Secret Stars */}
+          {secretStars.map((star) => (
+            <SecretStarObject key={star.id} star={star} />
+          ))}
+
+          {/* Wish and prayer void */}
+          <BlackHoleObject />
+        </div>
+>>>>>>> origin/main
       </div>
     </div>
   );

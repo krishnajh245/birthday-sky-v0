@@ -2,10 +2,20 @@
   "name": "sum's-bithday",
   "version": "1.0.0",
   "description": "",
+<<<<<<< HEAD
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+=======
+  "type": "commonjs",
+  "scripts": {
+    "server": "tsx server/index.ts",
+    "client": "vite",
+    "dev": "vite",
+    "start": "tsx server/index.ts",
+    "build": "node node_modules/typescript/bin/tsc && node node_modules/vite/bin/vite.js build",
+>>>>>>> origin/main
     "preview": "vite preview",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,7 +26,10 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+<<<<<<< HEAD
   "type": "commonjs",
+=======
+>>>>>>> origin/main
   "bugs": {
     "url": "https://github.com/dhruvishasoni-ux/sum-s-birthday/issues"
   },
@@ -24,15 +37,28 @@
   "dependencies": {
     "canvas-confetti": "^1.9.4",
     "express": "^5.2.1",
+<<<<<<< HEAD
     "lucide-react": "^1.41.0",
+=======
+    "lucide-react": "^1.45.0",
+    "pg": "^8.23.0",
+>>>>>>> origin/main
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },
   "devDependencies": {
     "@types/canvas-confetti": "^1.9.0",
+<<<<<<< HEAD
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",
     "@vitejs/plugin-react": "^6.1.1",
+=======
+    "@types/pg": "^8.23.1",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@vitejs/plugin-react": "^6.1.1",
+    "tsx": "^4.23.13",
+>>>>>>> origin/main
     "typescript": "^7.0.2",
     "vite": "^8.2.2"
   }

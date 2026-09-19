@@ -6,6 +6,10 @@ export interface UserAccount {
   password: string;
   avatarUrl: string;
   createdAt: number;
+<<<<<<< HEAD
+=======
+  uploadedStickers?: string[];
+>>>>>>> origin/main
 }
 
 export interface UserProfile {
@@ -36,16 +40,49 @@ export interface TextStyleConfig {
 
 export type StoryLayoutType = 1 | 2 | 3 | 4;
 
+<<<<<<< HEAD
 export type PageThemeType = 'midnight' | 'stardust' | 'parchment' | 'blossom' | 'cosmic' | 'sunset';
 
+=======
+export type PageThemeType =
+  | 'midnight'
+  | 'stardust'
+  | 'parchment'
+  | 'blossom'
+  | 'cosmic'
+  | 'sunset'
+  | 'custom';
+>>>>>>> origin/main
 export interface StoryPage {
   id: string;
   layout: StoryLayoutType;
   text: string;
   textStyle: TextStyleConfig;
+<<<<<<< HEAD
   imageUrl?: string;
   stickers: StickerItem[];
   theme: PageThemeType;
+=======
+
+  // Story text box position and size
+  textBoxX: number;
+  textBoxY: number;
+  textBoxWidth: number;
+  textBoxHeight: number;
+
+  imageUrl?: string;
+
+  // Story image position and size
+  imageX: number;
+  imageY: number;
+  imageWidth: number;
+  imageHeight: number;
+
+  stickers: StickerItem[];
+  theme: PageThemeType;
+  customGradientFrom?: string;
+  customGradientTo?: string;
+>>>>>>> origin/main
 }
 
 export interface PlanetDesign {
@@ -65,6 +102,18 @@ export interface ConstellationConnection {
   toId: number;
 }
 
+<<<<<<< HEAD
+=======
+export interface CardTextBox {
+  text: string;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  style: TextStyleConfig;
+}
+
+>>>>>>> origin/main
 export interface WishCard {
   id: string;
   creatorId?: string;
@@ -76,8 +125,18 @@ export interface WishCard {
   bodyStyle: TextStyleConfig;
   from: string;
   fromStyle: TextStyleConfig;
+<<<<<<< HEAD
   frame: string;
   accentColor: string;
+=======
+  titleBox?: CardTextBox;
+  bodyBox?: CardTextBox;
+  fromBox?: CardTextBox;
+  frame?: string;
+  accentColor: string;
+  bgGradientFrom?: string;
+  bgGradientTo?: string;
+>>>>>>> origin/main
   stickers: StickerItem[];
   // Sky coordinates (percentages within space container)
   x: number;
@@ -102,9 +161,16 @@ export interface Story {
   createdAt: number;
 }
 
+<<<<<<< HEAD
 export interface PersonalityWordEntry {
   id: string;
   word: string;
+=======
+export interface NebulaWordEntry {
+  id: string;
+  word: string;
+  explanation: string;
+>>>>>>> origin/main
   creatorId?: string;
   creatorName: string;
   creatorAvatar?: string;
@@ -161,8 +227,12 @@ export type ModalType =
   | 'planet-designer'
   | 'story-studio'
   | 'story-view'
+<<<<<<< HEAD
   | 'personality'
   | 'personality-list'
+=======
+  | 'nebula'
+>>>>>>> origin/main
   | 'voice-probe'
   | 'secret-star'
   | 'black-hole';

@@ -1,8 +1,15 @@
 import React from 'react';
 import { useSky } from '../../context/SkyContext';
+<<<<<<< HEAD
 
 export const MoonObject: React.FC = () => {
   const { setActiveModal } = useSky();
+=======
+import { CodeMoon } from './CodeMoon';
+
+export const MoonObject: React.FC = () => {
+  const { openMoon, isMoonOpened } = useSky();
+>>>>>>> origin/main
 
   return (
     <div
@@ -17,6 +24,7 @@ export const MoonObject: React.FC = () => {
       }}
       onClick={(e) => {
         e.stopPropagation();
+<<<<<<< HEAD
         setActiveModal('moon-message');
       }}
       title="The Moon"
@@ -28,6 +36,13 @@ export const MoonObject: React.FC = () => {
         draggable={false}
       />
       <div className="moon-ambient-halo" />
+=======
+        openMoon();
+      }}
+      title="The Moon"
+    >
+      <CodeMoon size={155} unopened={!isMoonOpened} />
+>>>>>>> origin/main
     </div>
   );
 };

@@ -47,8 +47,13 @@ export const StickerCanvasOverlay: React.FC<StickerCanvasOverlayProps> = ({
       const deltaPercentX = (deltaX / rect.width) * 100;
       const deltaPercentY = (deltaY / rect.height) * 100;
 
+<<<<<<< HEAD
       const newX = Math.min(95, Math.max(5, dragRef.current.initX + deltaPercentX));
       const newY = Math.min(95, Math.max(5, dragRef.current.initY + deltaPercentY));
+=======
+      const newX = Math.min(91, Math.max(9, dragRef.current.initX + deltaPercentX));
+      const newY = Math.min(91, Math.max(9, dragRef.current.initY + deltaPercentY));
+>>>>>>> origin/main
 
       onUpdateSticker?.(dragRef.current.id, { x: newX, y: newY });
     };
@@ -78,7 +83,12 @@ export const StickerCanvasOverlay: React.FC<StickerCanvasOverlayProps> = ({
             style={{
               left: `${sticker.x}%`,
               top: `${sticker.y}%`,
+<<<<<<< HEAD
               transform: `translate(-50%, -50%) scale(${sticker.scale || 1}) rotate(${sticker.rotation || 0}deg)`
+=======
+              transform: `translate(-50%, -50%) scale(${sticker.scale || 1}) rotate(${sticker.rotation || 0}deg)`,
+              zIndex: isSelected ? 30 : 25
+>>>>>>> origin/main
             }}
             onPointerDown={(e) => handlePointerDown(e, sticker)}
             onClick={(e) => e.stopPropagation()}
