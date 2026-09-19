@@ -37,6 +37,7 @@ function getSslConfig() {
 }
 
 let pool: pg.Pool | undefined;
+let schemaReady: Promise<void> | undefined;
 
 export function getPool() {
   if (!process.env.DATABASE_URL) {
@@ -59,7 +60,22 @@ export function getPool() {
   return pool;
 }
 
+async function ensureSchema() {
+  if (!schemaReady) {
+    schemaReady = fs.promises
+      .readFile(path.join(process.cwd(), 'server/schema.sql'), 'utf8')
+      .then((schema) => getPool().query(schema))
+      .then(() => undefined)
+      .catch((error) => {
+        schemaReady = undefined;
+        throw error;
+      });
+  }
+  await schemaReady;
+}
+
 export async function query<T extends pg.QueryResultRow>(text: string, values: unknown[] = []) {
+  await ensureSchema();
   const client = await getPool().connect();
   try {
     return await client.query<T>(text, values);
